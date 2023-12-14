@@ -6,7 +6,7 @@
  * @av: argumnents
  * return: 0 always (success)
  */
-int main(int ac, char **av);
+int main(int ac, char **av)
 {
 	char *line = NULL;
 	/*char **command = NULL;*/

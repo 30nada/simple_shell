@@ -1,15 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include "shell.h"
 
-extern char **environ;
-int main(void)
+int main(int ac, char **av, char **env)
 {
 	int i = 0;
-	while (environ[i] != NULL)
+	while (env[i] != NULL)
 	{
-	printf("%s", environ[i]);
+	printf("env[%d] = %s\n", i, env[i]);
 	i++;
 	}
+	return (0);
 }

@@ -1,44 +1,36 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
+#include "shell.h"
+
+void interative()
+{
+	size_t n = 0;
+	char *getinput = NULL;
+	
+	printf("$ ");
+	if (getline(&getinput, &n, stdin) == -1)
+	{
+	free(getinput);
+	exit(EXIT_FAILURE);
+	}
+	printf("value entered is %s\n", getinput);
+}
+
+void non_interactive()
+{
+	printf("Iam in non interactive mode\n");
+}
 
 int main(void)
 {
-	size_t buf_size = 0;
-	char *buf = NULL;
-	char *token;
-	int status, i = 0;
-	char **array;
-	pid_t child_pid;
-	while (1)
+	if (isatty(STDIN_FILENO) == 1)
 	{
-	write(1, "#cisfun$", 9);
-	getline(&buf, &buf_size, stdin);
-	token = strtok(buf, "\t\n");
-	array = malloc(sizeof(char *) * 1024);
-	while (token)
-	{
-	array[i] = token;
-	token = strtok(NULL, "\t\n");
-	i++;
-	}
-	array[i] = token;
-	child_pid = fork();
-	if (child_pid == 0)
-	{
-	if (execve(array[0], array, NULL) == -1)
-	perror("ERROR");
+	printf("HI\n");
+	interative();
 	}
 	else
 	{
-	wait(&status);
+	printf("ERROR\n");
+	non_interactive();
 	}
-	i = 0;
-	free(array);
-	}
+	printf("outside\n");
+	return (0);
 }
-	
-

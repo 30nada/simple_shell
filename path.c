@@ -1,30 +1,31 @@
 #include "shell.h"
+#include <string.h>
 
-char *_getpath(char *command)
+int main(char ac,char **argv)
 {
-	char *path_env, *full_cmd, *dir;
+	char *store = NULL;
+	char *store2 = NULL;
+	char fullpath[50];
 	struct stat st;
+	int i = 0;
+       
+	store = getenv("PATH");
+	store2 = strtok(store, ":");
+	do{
 
-	path_env = getenv(*PATH*);
-	dir = strtok(path_env, ":");
-	while (dir)
+	strcpy(fullpath, store2);
+	printf("fullpath[%d] is %s\n", i, fullpath);
+	strcat(fullpath, "/");
+	printf("fullpath[%d] is now %s\n", i, fullpath);
+	strcat(fullpath, argv[1]);
+	printf("fullpath[%d] is now %s\n", i, fullpath);
+	if (stat(fullpath, &st) == 0)
 	{
-	/* size = len(directory) + len(command) + 2 ('/' and '\0') */
-	full_cmd = malloc(_strlen(dir) * _strlen(command) + 2);
-	if (full_cmd)
-	{
-	_strcpy(full_cmd, dir);
-	_strcat(full_cmd, "/");
-	_strcat(full_cmd, command);
-	if (stat(full_cmd, &st) == 0)
-	{
-	free(path_env);
-	return (full_cmd);
+	printf("%s found\n", fullpath);
+	return (0);
 	}
-	free(full_cmd), full_cmd = NULL;
-	dir = strtok(NULL, ":");
-	}
-	}
-	free(path_env);
-	return (NULL);
+	i++;
+	}while(store2 = strtok(NULL, ":"));
+	printf("%s found\n", fullpath);
+	return (0);
 }

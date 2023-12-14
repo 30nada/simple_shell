@@ -10,5 +10,8 @@
 #include <errno.h>
 #include <fcntl.h>
 
+void interactive();
+void non_interactive();
+
 
 #endif
