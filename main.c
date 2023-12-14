@@ -15,7 +15,7 @@ int main(int ac, char **av)
 	(void) av;
 	while (1)
 	{
-	line = read_line();
+	line = readlink();
 	if (line == NULL) /* reache EOF Ctrl+D */
 	return (status);
 	printf("%s\n", line);

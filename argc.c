@@ -2,7 +2,7 @@
 
 int main(int arge, char **argv)
 {
-	printf("ARGC is %s\n", argv * );
+	printf("ARGC is %s\n", argv *);
 
 	int index = 0;
 
